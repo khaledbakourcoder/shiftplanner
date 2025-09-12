@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@theme {
+    /* Primary = Grün (Corporate) */
+    --color-primary-500: oklch(0.72 0.20 150);
+    --color-primary-600: oklch(0.62 0.20 150);
+    --color-primary-700: oklch(0.52 0.20 150);
+
+    /* Secondary = Gelb (Akzent) */
+    --color-secondary-500: oklch(0.90 0.18 95);
+    --color-secondary-600: oklch(0.80 0.18 95);
+
+    /* Neutral / UI Farben */
+    --color-neutral-50:  oklch(0.98 0.01 270);
+    --color-neutral-200: oklch(0.90 0.02 270);
+    --color-neutral-800: oklch(0.28 0.03 270);
+    --color-neutral-950: oklch(0.15 0.02 270);
+}

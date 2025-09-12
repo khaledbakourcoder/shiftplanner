@@ -1,0 +1,9 @@
+[
+    {
+        "id":1,
+        "first_name":"khaled",
+        "last_name":"bakour",
+        "shifts":["s1","s2"],
+        "days":["Sonntag","Samstag"]
+    }
+]  

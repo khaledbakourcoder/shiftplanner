@@ -1,0 +1,13 @@
+
+ [
+    {"id":1,
+    "label":"F1",
+    "desc":"Die Erste Fürhschicht",
+    "time_start":"06:00",
+    "time_end":"06:00",
+    "total_time":"06:00",
+    "day":["Montag","Dienstag","Mittwoch","Donnstag","Freitag"],
+    "color":"red"}
+
+ ]   
+
