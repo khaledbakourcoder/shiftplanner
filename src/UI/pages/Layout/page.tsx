@@ -1,16 +1,19 @@
 
 // src/UI/components/Layout.tsx
 import {  Outlet } from "react-router-dom";
-import {Header,Sidebar} from "../../components/Layout";
+import {Header, Sidebar, SmallWindowWrapper} from "../../components/Layout";
 
 import LayoutData from "./data.tsx";
+import {useUi} from "../../features/ui/useUI.tsx";
 
 
 export default function Page() {
     const {sideBar}=LayoutData
-
+const {smallWindowIsOpen,smallWindowContent}=useUi()
     return (
         <div className="flex h-screen">
+            {/* Small window */}
+            {smallWindowIsOpen &&  <SmallWindowWrapper>{smallWindowContent}</SmallWindowWrapper>}
 
 
             {/* SIDEBAR */}
