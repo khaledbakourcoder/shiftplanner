@@ -4,25 +4,36 @@ import { useState } from "react";
 import type { EmployeeType } from "../../features/employees/EmployeesSlice.ts";
 import useEmployees from "../../features/employees/UseEmployees.tsx";
 
-export default function AddEmployeeForm() {
+type Props = {
+    employeeId: string;
+};
+
+export default function UpdateEmployee({ employeeId }: Props) {
     const { closeSmallWindow } = useUi();
-    const {addEmployee}=useEmployees()
+    const { employees, updateEmployee } = useEmployees();
+
+    const currentEmployee = employees.find((e) => e.employeeId === employeeId);
+
+    if (!currentEmployee) {
+        return (
+            <div className="p-6 text-center text-sm text-red-500">
+                Mitarbeiter nicht gefunden.
+            </div>
+        );
+    }
+
     const [employeeData, setEmployeeData] = useState<EmployeeType>({
-        employeeId: "",
-        firstName: "",
-        secondName: "",
-        days: [],
-        shifts: [],
-        WorkTime: "",
+        employeeId: currentEmployee.employeeId,
+        firstName: currentEmployee.firstName,
+        secondName: currentEmployee.secondName,
+        days: currentEmployee.days,
+        shifts: currentEmployee.shifts,
+        WorkTime: currentEmployee.WorkTime,
     });
 
     function submittedHandle(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-
-        // Hier kannst du speichern oder dispatchen
-        console.log("Neuer Mitarbeiter:", employeeData);
-        addEmployee(employeeData)
-        // Fenster schließen
+        updateEmployee(employeeData);
         closeSmallWindow();
     }
 
@@ -34,13 +45,12 @@ export default function AddEmployeeForm() {
                     <div
                         className="inline-flex h-9 w-9 items-center justify-center rounded-lg"
                         style={{ backgroundColor: "#F39200", color: "#0B3D2E" }}
-                        aria-hidden
                     >
                         <FiUser />
                     </div>
                     <div>
-                        <h2 className="text-lg font-semibold text-gray-900">Mitarbeiter hinzufügen</h2>
-                        <p className="text-xs text-gray-500">Bitte Stammdaten eintragen</p>
+                        <h2 className="text-lg font-semibold text-gray-900">Mitarbeiter bearbeiten</h2>
+                        <p className="text-xs text-gray-500">Stammdaten anpassen</p>
                     </div>
                 </div>
 
@@ -53,7 +63,7 @@ export default function AddEmployeeForm() {
                 </button>
             </div>
 
-            {/* Body */}
+            {/* Form */}
             <form onSubmit={submittedHandle} className="px-6 py-5 space-y-4">
                 {/* Vorname */}
                 <label className="block">
@@ -62,14 +72,11 @@ export default function AddEmployeeForm() {
                         <FiUser className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                         <input
                             name="firstName"
-                            placeholder="z. B. Max"
                             value={employeeData.firstName}
                             onChange={(e) =>
                                 setEmployeeData((prev) => ({ ...prev, firstName: e.target.value }))
                             }
-                            className="w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-900 placeholder:text-gray-400
-                            focus:outline-none focus:ring-2 focus:ring-[var(--team-green)] focus:border-[var(--team-green)]
-                            transition"
+                            className="w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--team-green)] focus:border-[var(--team-green)] transition"
                             required
                         />
                     </div>
@@ -82,14 +89,11 @@ export default function AddEmployeeForm() {
                         <FiUser className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                         <input
                             name="secondName"
-                            placeholder="z. B. Mustermann"
                             value={employeeData.secondName}
                             onChange={(e) =>
                                 setEmployeeData((prev) => ({ ...prev, secondName: e.target.value }))
                             }
-                            className="w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-900 placeholder:text-gray-400
-                            focus:outline-none focus:ring-2 focus:ring-[var(--team-green)] focus:border-[var(--team-green)]
-                            transition"
+                            className="w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--team-green)] focus:border-[var(--team-green)] transition"
                             required
                         />
                     </div>
@@ -105,21 +109,18 @@ export default function AddEmployeeForm() {
                             type="number"
                             min={0}
                             max={60}
-                            placeholder="z. B. 40"
                             value={employeeData.WorkTime}
                             onChange={(e) =>
                                 setEmployeeData((prev) => ({ ...prev, WorkTime: e.target.value }))
                             }
-                            className="w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-900 placeholder:text-gray-400
-                            focus:outline-none focus:ring-2 focus:ring-[var(--team-green)] focus:border-[var(--team-green)]
-                            transition"
+                            className="w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--team-green)] focus:border-[var(--team-green)] transition"
                             required
                         />
                     </div>
                     <p className="mt-1 text-xs text-gray-500">Empfohlen: 10–48 Std.</p>
                 </label>
 
-                {/* Footer-Buttons */}
+                {/* Footer */}
                 <div className="mt-2 flex items-center justify-end gap-3 pt-4 border-t">
                     <button
                         type="button"

@@ -12,7 +12,7 @@ createRoot(document.getElementById('root')!).render(
     <Provider store={store}>
         <StrictMode>
             <RouterProvider router={routes} />
-        </StrictMode>,
+        </StrictMode>
     </Provider>
 
 

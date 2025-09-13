@@ -9,6 +9,7 @@ import {
 import { useUi } from "../../features/ui/useUI";
 import useEmployees from "../../features/employees/UseEmployees";
 import AddEmployee from "../../components/Forms/AddEmployee.tsx";
+import UpdateEmployee from "../../components/Forms/updateEmployee.tsx";
 
 // Hilfstyp falls nötig
 type EmployeeView = {
@@ -21,7 +22,7 @@ type EmployeeView = {
 
 export default function EmployeesPage() {
     const { openSmallWindow } = useUi();
-    const { employees } = useEmployees();
+    const { employees,removeOneEmployee } = useEmployees();
 
     // Mappe deine Store-Struktur auf die View-Struktur
     const rows: EmployeeView[] = employees.map((e: any) => ({
@@ -63,7 +64,7 @@ export default function EmployeesPage() {
     return (
         <section className="max-w-screen-xl mx-auto px-6 py-10">
             <h1 className="mb-8 text-3xl font-bold text-gray-800">⛽ Mitarbeiterübersicht</h1>
-<button onClick={()=> openSmallWindow(<AddEmployee/>)}> Mitarbeiter anlegen </button>
+<button className={"p-4 bg-green-600 text-white rounded-2xl m-2 block w-full cursor-pointer hover:bg-green-500  transition-all duration-500"} onClick={()=> openSmallWindow(<AddEmployee/>)}> Mitarbeiter anlegen </button>
             <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xl">
                 <table className="min-w-full text-sm">
                     <thead>
@@ -104,7 +105,7 @@ export default function EmployeesPage() {
                                     </button>
 
                                     <button
-                                        onClick={() => openSmallWindow(<h1>Bearbeiten</h1>)}
+                                        onClick={() => openSmallWindow(<UpdateEmployee employeeId={emp.id}/>)}
                                         className="transition hover:-translate-y-0.5"
                                         style={{ color: "var(--team-orange)" }}
                                         aria-label="Mitarbeiter bearbeiten"
@@ -114,7 +115,7 @@ export default function EmployeesPage() {
                                     </button>
 
                                     <button
-                                        onClick={() => openSmallWindow(<h1>Löschen</h1>)}
+                                        onClick={()=>removeOneEmployee(emp.id)}
                                         className="transition hover:-translate-y-0.5 text-red-600"
                                         aria-label="Mitarbeiter löschen"
                                         title="Löschen"

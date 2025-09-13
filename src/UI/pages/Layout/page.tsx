@@ -7,11 +7,11 @@ import LayoutData from "./data.tsx";
 import {useUi} from "../../features/ui/useUI.tsx";
 
 
-export default function Page() {
+export default function MainPage() {
     const {sideBar}=LayoutData
 const {smallWindowIsOpen,smallWindowContent}=useUi()
     return (
-        <div className="flex h-screen">
+        <div className="flex h-screen overflow-hidden ">
             {/* Small window */}
             {smallWindowIsOpen &&  <SmallWindowWrapper>{smallWindowContent}</SmallWindowWrapper>}
 
@@ -28,5 +28,5 @@ const {smallWindowIsOpen,smallWindowContent}=useUi()
                 </main>
             </div>
         </div>
-    );
+    )
 }
