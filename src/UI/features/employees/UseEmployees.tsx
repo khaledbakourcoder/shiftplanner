@@ -22,10 +22,16 @@ export default function useEmployees() {
         dispatch(updateEmployeeAction(employee));
     }
 
+    function getEmployeeById(employeeId: string) {
+       return  employees.find((e) => e.id === employeeId);
+    }
+
+
     return {
         employees,
         addEmployee,
         removeOneEmployee,
         updateEmployee: updateOneEmployee,
+        getEmployeeById,
     };
 }

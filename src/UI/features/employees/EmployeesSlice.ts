@@ -1,24 +1,27 @@
 import {createSlice, type PayloadAction} from "@reduxjs/toolkit";
 
 export type EmployeeType={
-    employeeId:string,
+    id:string,
     firstName:string,
     secondName:string,
     shifts:string[],
-    WorkTime:string,
+    workTime:string,
     workTimePreMonth?:number,
-    days?:string[]
+    status:string,
+    days:string[]
     phoneNumber?:string,
     birthday?:Date,
 
 }
-const initialState:EmployeeType[] | null=[
+const initialState:EmployeeType[]|[]=[
     {
-        employeeId:"1  ",
+        id:"1",
         firstName:"khaled",
         secondName:"bakour",
         shifts:["sa","so"],
-        WorkTime:"40"
+        workTime:"40",
+        status:"active",
+        days:["montag"]
     }
 
 ]
@@ -27,18 +30,27 @@ const EmployeeSlice = createSlice({
     name: "employee",
     initialState,
     reducers:{
+
+
         setEmployee: (state, action: PayloadAction<EmployeeType>) => {
-            state.push(action.payload); // ✅ direkt mutieren (RTK macht es immutable)
+            const newEmployee = {
+                ...action.payload,
+                id:(state.length + 1 ).toString()   ,
+            }
+            state.push(newEmployee);
         },
+
+
         removeEmployee: (state, action: PayloadAction<string>) => {
-            return state.filter((e) => e.employeeId !== action.payload);
+            return state.filter((e) => e.id !== action.payload);
         },
         updateEmployee: (state, action: PayloadAction<EmployeeType>) => {
-            const index = state.findIndex((e) => e.employeeId === action.payload.employeeId);
+            const index = state.findIndex((e) => e.id === action.payload.id);
             if (index !== -1) {
                 state[index] = action.payload;
             }
         },
+
     }
 })
 
